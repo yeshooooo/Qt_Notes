@@ -9,6 +9,8 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 set(CMAKE_PREFIX_PATH "C:/Qt/5.15.2/msvc2019_64")
 
+message("---------------")
+message(${CMAKE_PREFIX_PATH})
 find_package(Qt5 COMPONENTS
         Core
         Gui
@@ -23,18 +25,23 @@ find_package(Qt5 COMPONENTS
 #)
 add_subdirectory(src)
 
-if (WIN32 AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
-    set(DEBUG_SUFFIX)
-    if (MSVC AND CMAKE_BUILD_TYPE MATCHES "Debug")
-        set(DEBUG_SUFFIX "d")
-    endif ()
-    set(QT_INSTALL_PATH "${CMAKE_PREFIX_PATH}")
-    if (NOT EXISTS "${QT_INSTALL_PATH}/bin")
-        set(QT_INSTALL_PATH "${QT_INSTALL_PATH}/..")
-        if (NOT EXISTS "${QT_INSTALL_PATH}/bin")
-            set(QT_INSTALL_PATH "${QT_INSTALL_PATH}/..")
-        endif ()
-    endif ()
+# 这里windows下没有采用复制动态库到编译目录的方法，而是直接添加到了系统环境变量
+#if (WIN32 AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
+#    # windows
+#    message("-----env-----")
+#
+#    message($ENV{PATH})
+#    set(DEBUG_SUFFIX)
+#    if (MSVC AND CMAKE_BUILD_TYPE MATCHES "Debug")
+#        set(DEBUG_SUFFIX "d")
+#    endif ()
+#    set(QT_INSTALL_PATH "${CMAKE_PREFIX_PATH}")
+#    if (NOT EXISTS "${QT_INSTALL_PATH}/bin")
+#        set(QT_INSTALL_PATH "${QT_INSTALL_PATH}/..")
+#        if (NOT EXISTS "${QT_INSTALL_PATH}/bin")
+#            set(QT_INSTALL_PATH "${QT_INSTALL_PATH}/..")
+#        endif ()
+#    endif ()
 #    if (EXISTS "${QT_INSTALL_PATH}/plugins/platforms/qwindows${DEBUG_SUFFIX}.dll")
 #        add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
 #                COMMAND ${CMAKE_COMMAND} -E make_directory
@@ -50,4 +57,4 @@ if (WIN32 AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
 #                "${QT_INSTALL_PATH}/bin/Qt5${QT_LIB}${DEBUG_SUFFIX}.dll"
 #                "$<TARGET_FILE_DIR:${PROJECT_NAME}>")
 #    endforeach (QT_LIB)
-endif ()
+#endif ()
