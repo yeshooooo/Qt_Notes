@@ -25,6 +25,14 @@ find_package(Qt5 COMPONENTS
 #)
 add_subdirectory(src)
 
+# msvc下设置utf8防止乱码
+add_compile_options("$<$<C_COMPILER_ID:MSVC>:/utf-8>")
+add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
+#if (MSVC)
+#    add_compile_options("$<$<C_COMPILER_ID:MSVC>:/utf-8>")
+#    add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
+#endif ()
+
 # 这里windows下没有采用复制动态库到编译目录的方法，而是直接添加到了系统环境变量
 #if (WIN32 AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
 #    # windows

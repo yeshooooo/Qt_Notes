@@ -9,6 +9,8 @@ target_link_libraries(1_3MyFirstWidget
         Qt5::Gui
         Qt5::Widgets
 )
+message("---隐式生产的PROJECT_NAME---")
+message( ${PROJECT_NAME})
 
 # 不采用这种方法复制动态库，改为设置系统环境变量
 #add_custom_command(TARGET 1_3MyFirstWidget POST_BUILD
